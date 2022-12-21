@@ -42,6 +42,11 @@ service Query {
 		option (google.api.http).get = "/poc/poc/show_app_users/{appId}";
 	}
 
+// Queries a list of ShowAppParameters items.
+	rpc ShowAppParameters(QueryShowAppParametersRequest) returns (QueryShowAppParametersResponse) {
+		option (google.api.http).get = "/poc/poc/show_app_parameters/{appId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -96,6 +101,14 @@ message QueryShowAppUsersRequest {
 
 message QueryShowAppUsersResponse {
   string users = 1;
+}
+
+message QueryShowAppParametersRequest {
+  string appId = 1;
+}
+
+message QueryShowAppParametersResponse {
+  string parameters = 1;
 }
 
 // this line is used by starport scaffolding # 3

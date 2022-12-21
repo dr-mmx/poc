@@ -82,6 +82,10 @@ export interface PocQueryParamsResponse {
   params?: PocParams;
 }
 
+export interface PocQueryShowAppParametersResponse {
+  parameters?: string;
+}
+
 export interface PocQueryShowAppUsersResponse {
   users?: string;
 }
@@ -389,6 +393,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<PocQueryParamsResponse, RpcStatus>({
       path: `/poc/poc/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowAppParameters
+   * @summary Queries a list of ShowAppParameters items.
+   * @request GET:/poc/poc/show_app_parameters/{appId}
+   */
+  queryShowAppParameters = (appId: string, params: RequestParams = {}) =>
+    this.request<PocQueryShowAppParametersResponse, RpcStatus>({
+      path: `/poc/poc/show_app_parameters/${appId}`,
       method: "GET",
       format: "json",
       ...params,

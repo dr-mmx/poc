@@ -59,6 +59,14 @@ export interface QueryShowAppUsersResponse {
   users: string;
 }
 
+export interface QueryShowAppParametersRequest {
+  appId: string;
+}
+
+export interface QueryShowAppParametersResponse {
+  parameters: string;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -669,6 +677,104 @@ export const QueryShowAppUsersResponse = {
   },
 };
 
+function createBaseQueryShowAppParametersRequest(): QueryShowAppParametersRequest {
+  return { appId: "" };
+}
+
+export const QueryShowAppParametersRequest = {
+  encode(message: QueryShowAppParametersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.appId !== "") {
+      writer.uint32(10).string(message.appId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAppParametersRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryShowAppParametersRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowAppParametersRequest {
+    return { appId: isSet(object.appId) ? String(object.appId) : "" };
+  },
+
+  toJSON(message: QueryShowAppParametersRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined && (obj.appId = message.appId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryShowAppParametersRequest>, I>>(
+    object: I,
+  ): QueryShowAppParametersRequest {
+    const message = createBaseQueryShowAppParametersRequest();
+    message.appId = object.appId ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryShowAppParametersResponse(): QueryShowAppParametersResponse {
+  return { parameters: "" };
+}
+
+export const QueryShowAppParametersResponse = {
+  encode(message: QueryShowAppParametersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.parameters !== "") {
+      writer.uint32(10).string(message.parameters);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAppParametersResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryShowAppParametersResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.parameters = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowAppParametersResponse {
+    return { parameters: isSet(object.parameters) ? String(object.parameters) : "" };
+  },
+
+  toJSON(message: QueryShowAppParametersResponse): unknown {
+    const obj: any = {};
+    message.parameters !== undefined && (obj.parameters = message.parameters);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryShowAppParametersResponse>, I>>(
+    object: I,
+  ): QueryShowAppParametersResponse {
+    const message = createBaseQueryShowAppParametersResponse();
+    message.parameters = object.parameters ?? "";
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -683,6 +789,8 @@ export interface Query {
   DevRegistryAll(request: QueryAllDevRegistryRequest): Promise<QueryAllDevRegistryResponse>;
   /** Queries a list of ShowAppUsers items. */
   ShowAppUsers(request: QueryShowAppUsersRequest): Promise<QueryShowAppUsersResponse>;
+  /** Queries a list of ShowAppParameters items. */
+  ShowAppParameters(request: QueryShowAppParametersRequest): Promise<QueryShowAppParametersResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -695,6 +803,7 @@ export class QueryClientImpl implements Query {
     this.DevRegistry = this.DevRegistry.bind(this);
     this.DevRegistryAll = this.DevRegistryAll.bind(this);
     this.ShowAppUsers = this.ShowAppUsers.bind(this);
+    this.ShowAppParameters = this.ShowAppParameters.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -730,6 +839,12 @@ export class QueryClientImpl implements Query {
     const data = QueryShowAppUsersRequest.encode(request).finish();
     const promise = this.rpc.request("poc.poc.Query", "ShowAppUsers", data);
     return promise.then((data) => QueryShowAppUsersResponse.decode(new _m0.Reader(data)));
+  }
+
+  ShowAppParameters(request: QueryShowAppParametersRequest): Promise<QueryShowAppParametersResponse> {
+    const data = QueryShowAppParametersRequest.encode(request).finish();
+    const promise = this.rpc.request("poc.poc.Query", "ShowAppParameters", data);
+    return promise.then((data) => QueryShowAppParametersResponse.decode(new _m0.Reader(data)));
   }
 }
 
