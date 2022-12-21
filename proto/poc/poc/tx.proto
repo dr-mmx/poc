@@ -8,6 +8,7 @@ option go_package = "poc/x/poc/types";
 // Msg defines the Msg service.
 service Msg {
       rpc RegisterApp(MsgRegisterApp) returns (MsgRegisterAppResponse);
+  rpc RegisterAppUser(MsgRegisterAppUser) returns (MsgRegisterAppUserResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -17,6 +18,15 @@ message MsgRegisterApp {
 }
 
 message MsgRegisterAppResponse {
+}
+
+message MsgRegisterAppUser {
+  string creator = 1;
+  string appId = 2;
+  string userId = 3;
+}
+
+message MsgRegisterAppUserResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

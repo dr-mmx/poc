@@ -7,10 +7,17 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
+import { MsgRegisterAppUser } from "./types/poc/poc/tx";
 import { MsgRegisterApp } from "./types/poc/poc/tx";
 
 
-export { MsgRegisterApp };
+export { MsgRegisterAppUser, MsgRegisterApp };
+
+type sendMsgRegisterAppUserParams = {
+  value: MsgRegisterAppUser,
+  fee?: StdFee,
+  memo?: string
+};
 
 type sendMsgRegisterAppParams = {
   value: MsgRegisterApp,
@@ -18,6 +25,10 @@ type sendMsgRegisterAppParams = {
   memo?: string
 };
 
+
+type msgRegisterAppUserParams = {
+  value: MsgRegisterAppUser,
+};
 
 type msgRegisterAppParams = {
   value: MsgRegisterApp,
@@ -41,6 +52,20 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 
   return {
 		
+		async sendMsgRegisterAppUser({ value, fee, memo }: sendMsgRegisterAppUserParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgRegisterAppUser: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgRegisterAppUser({ value: MsgRegisterAppUser.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgRegisterAppUser: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
 		async sendMsgRegisterApp({ value, fee, memo }: sendMsgRegisterAppParams): Promise<DeliverTxResponse> {
 			if (!signer) {
 					throw new Error('TxClient:sendMsgRegisterApp: Unable to sign Tx. Signer is not present.')
@@ -55,6 +80,14 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
+		
+		msgRegisterAppUser({ value }: msgRegisterAppUserParams): EncodeObject {
+			try {
+				return { typeUrl: "/poc.poc.MsgRegisterAppUser", value: MsgRegisterAppUser.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgRegisterAppUser: Could not create message: ' + e.message)
+			}
+		},
 		
 		msgRegisterApp({ value }: msgRegisterAppParams): EncodeObject {
 			try {
