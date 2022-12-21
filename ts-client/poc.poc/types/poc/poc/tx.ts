@@ -9,6 +9,7 @@ export interface MsgRegisterApp {
 }
 
 export interface MsgRegisterAppResponse {
+  appId: string;
 }
 
 export interface MsgRegisterAppUser {
@@ -96,11 +97,14 @@ export const MsgRegisterApp = {
 };
 
 function createBaseMsgRegisterAppResponse(): MsgRegisterAppResponse {
-  return {};
+  return { appId: "" };
 }
 
 export const MsgRegisterAppResponse = {
-  encode(_: MsgRegisterAppResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(message: MsgRegisterAppResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.appId !== "") {
+      writer.uint32(10).string(message.appId);
+    }
     return writer;
   },
 
@@ -111,6 +115,9 @@ export const MsgRegisterAppResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -119,17 +126,19 @@ export const MsgRegisterAppResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgRegisterAppResponse {
-    return {};
+  fromJSON(object: any): MsgRegisterAppResponse {
+    return { appId: isSet(object.appId) ? String(object.appId) : "" };
   },
 
-  toJSON(_: MsgRegisterAppResponse): unknown {
+  toJSON(message: MsgRegisterAppResponse): unknown {
     const obj: any = {};
+    message.appId !== undefined && (obj.appId = message.appId);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRegisterAppResponse>, I>>(_: I): MsgRegisterAppResponse {
+  fromPartial<I extends Exact<DeepPartial<MsgRegisterAppResponse>, I>>(object: I): MsgRegisterAppResponse {
     const message = createBaseMsgRegisterAppResponse();
+    message.appId = object.appId ?? "";
     return message;
   },
 };

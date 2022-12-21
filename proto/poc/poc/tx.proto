@@ -20,6 +20,7 @@ message MsgRegisterApp {
 }
 
 message MsgRegisterAppResponse {
+  string appId = 1;
 }
 
 message MsgRegisterAppUser {

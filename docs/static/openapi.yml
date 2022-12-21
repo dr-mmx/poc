@@ -44325,7 +44325,7 @@ paths:
                   properties:
                     index:
                       type: string
-                    appId:
+                    stake:
                       type: string
                     devId:
                       type: string
@@ -44453,7 +44453,7 @@ paths:
                 properties:
                   index:
                     type: string
-                  appId:
+                  stake:
                     type: string
                   devId:
                     type: string
@@ -74193,7 +74193,7 @@ definitions:
     properties:
       index:
         type: string
-      appId:
+      stake:
         type: string
       devId:
         type: string
@@ -74216,6 +74216,9 @@ definitions:
     type: object
   poc.poc.MsgRegisterAppResponse:
     type: object
+    properties:
+      appId:
+        type: string
   poc.poc.MsgRegisterAppUserResponse:
     type: object
   poc.poc.Params:
@@ -74231,7 +74234,7 @@ definitions:
           properties:
             index:
               type: string
-            appId:
+            stake:
               type: string
             devId:
               type: string
@@ -74313,7 +74316,7 @@ definitions:
         properties:
           index:
             type: string
-          appId:
+          stake:
             type: string
           devId:
             type: string

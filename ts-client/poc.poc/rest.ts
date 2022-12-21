@@ -11,7 +11,7 @@
 
 export interface PocAppRegistry {
   index?: string;
-  appId?: string;
+  stake?: string;
   devId?: string;
   parameters?: string;
   users?: string;
@@ -27,7 +27,9 @@ export type PocMsgDeregisterAppResponse = object;
 
 export type PocMsgDeregisterAppUserResponse = object;
 
-export type PocMsgRegisterAppResponse = object;
+export interface PocMsgRegisterAppResponse {
+  appId?: string;
+}
 
 export type PocMsgRegisterAppUserResponse = object;
 

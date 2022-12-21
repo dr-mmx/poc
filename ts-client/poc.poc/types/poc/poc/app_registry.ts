@@ -5,14 +5,14 @@ export const protobufPackage = "poc.poc";
 
 export interface AppRegistry {
   index: string;
-  appId: string;
+  stake: string;
   devId: string;
   parameters: string;
   users: string;
 }
 
 function createBaseAppRegistry(): AppRegistry {
-  return { index: "", appId: "", devId: "", parameters: "", users: "" };
+  return { index: "", stake: "", devId: "", parameters: "", users: "" };
 }
 
 export const AppRegistry = {
@@ -20,8 +20,8 @@ export const AppRegistry = {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
-    if (message.appId !== "") {
-      writer.uint32(18).string(message.appId);
+    if (message.stake !== "") {
+      writer.uint32(18).string(message.stake);
     }
     if (message.devId !== "") {
       writer.uint32(26).string(message.devId);
@@ -46,7 +46,7 @@ export const AppRegistry = {
           message.index = reader.string();
           break;
         case 2:
-          message.appId = reader.string();
+          message.stake = reader.string();
           break;
         case 3:
           message.devId = reader.string();
@@ -68,7 +68,7 @@ export const AppRegistry = {
   fromJSON(object: any): AppRegistry {
     return {
       index: isSet(object.index) ? String(object.index) : "",
-      appId: isSet(object.appId) ? String(object.appId) : "",
+      stake: isSet(object.stake) ? String(object.stake) : "",
       devId: isSet(object.devId) ? String(object.devId) : "",
       parameters: isSet(object.parameters) ? String(object.parameters) : "",
       users: isSet(object.users) ? String(object.users) : "",
@@ -78,7 +78,7 @@ export const AppRegistry = {
   toJSON(message: AppRegistry): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
-    message.appId !== undefined && (obj.appId = message.appId);
+    message.stake !== undefined && (obj.stake = message.stake);
     message.devId !== undefined && (obj.devId = message.devId);
     message.parameters !== undefined && (obj.parameters = message.parameters);
     message.users !== undefined && (obj.users = message.users);
@@ -88,7 +88,7 @@ export const AppRegistry = {
   fromPartial<I extends Exact<DeepPartial<AppRegistry>, I>>(object: I): AppRegistry {
     const message = createBaseAppRegistry();
     message.index = object.index ?? "";
-    message.appId = object.appId ?? "";
+    message.stake = object.stake ?? "";
     message.devId = object.devId ?? "";
     message.parameters = object.parameters ?? "";
     message.users = object.users ?? "";
