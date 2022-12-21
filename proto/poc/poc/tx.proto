@@ -10,6 +10,7 @@ service Msg {
       rpc RegisterApp(MsgRegisterApp) returns (MsgRegisterAppResponse);
   rpc RegisterAppUser(MsgRegisterAppUser) returns (MsgRegisterAppUserResponse);
   rpc DeregisterApp(MsgDeregisterApp) returns (MsgDeregisterAppResponse);
+  rpc DeregisterAppUser(MsgDeregisterAppUser) returns (MsgDeregisterAppUserResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -36,6 +37,15 @@ message MsgDeregisterApp {
 }
 
 message MsgDeregisterAppResponse {
+}
+
+message MsgDeregisterAppUser {
+  string creator = 1;
+  string appId = 2;
+  string devId = 3;
+}
+
+message MsgDeregisterAppUserResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

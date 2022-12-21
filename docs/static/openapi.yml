@@ -73731,6 +73731,8 @@ definitions:
       the connection handshake.
   poc.poc.MsgDeregisterAppResponse:
     type: object
+  poc.poc.MsgDeregisterAppUserResponse:
+    type: object
   poc.poc.MsgRegisterAppResponse:
     type: object
   poc.poc.MsgRegisterAppUserResponse:

@@ -11,6 +11,8 @@
 
 export type PocMsgDeregisterAppResponse = object;
 
+export type PocMsgDeregisterAppUserResponse = object;
+
 export type PocMsgRegisterAppResponse = object;
 
 export type PocMsgRegisterAppUserResponse = object;
