@@ -90,6 +90,10 @@ export interface PocQueryShowAppUsersResponse {
   users?: string;
 }
 
+export interface PocQueryShowDevAppsResponse {
+  apps?: string;
+}
+
 export interface ProtobufAny {
   "@type"?: string;
 }
@@ -425,6 +429,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryShowAppUsers = (appId: string, params: RequestParams = {}) =>
     this.request<PocQueryShowAppUsersResponse, RpcStatus>({
       path: `/poc/poc/show_app_users/${appId}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryShowDevApps
+   * @summary Queries a list of ShowDevApps items.
+   * @request GET:/poc/poc/show_dev_apps/{devId}
+   */
+  queryShowDevApps = (devId: string, params: RequestParams = {}) =>
+    this.request<PocQueryShowDevAppsResponse, RpcStatus>({
+      path: `/poc/poc/show_dev_apps/${devId}`,
       method: "GET",
       format: "json",
       ...params,

@@ -44766,6 +44766,43 @@ paths:
           type: string
       tags:
         - Query
+  /poc/poc/show_dev_apps/{devId}:
+    get:
+      summary: Queries a list of ShowDevApps items.
+      operationId: PocPocShowDevApps
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              apps:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: devId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.auth.v1beta1.AddressBytesToStringResponse:
     type: object
@@ -74312,4 +74349,9 @@ definitions:
     type: object
     properties:
       users:
+        type: string
+  poc.poc.QueryShowDevAppsResponse:
+    type: object
+    properties:
+      apps:
         type: string

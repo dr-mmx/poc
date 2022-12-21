@@ -43,6 +43,7 @@ const getDefaultState = () => {
 				DevRegistryAll: {},
 				ShowAppUsers: {},
 				ShowAppParameters: {},
+				ShowDevApps: {},
 				
 				_Structure: {
 						AppRegistry: getStructure(AppRegistry.fromPartial({})),
@@ -117,6 +118,12 @@ export default {
 						(<any> params).query=null
 					}
 			return state.ShowAppParameters[JSON.stringify(params)] ?? {}
+		},
+				getShowDevApps: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.ShowDevApps[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -314,6 +321,41 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryShowDevApps({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const client = initClient(rootGetters);
+				let value= (await client.PocPoc.query.queryShowDevApps( key.devId)).data
+				
+					
+				commit('QUERY', { query: 'ShowDevApps', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryShowDevApps', payload: { options: { all }, params: {...key},query }})
+				return getters['getShowDevApps']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryShowDevApps API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		async sendMsgRegisterApp({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.PocPoc.tx.sendMsgRegisterApp({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgRegisterApp:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgRegisterApp:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgDeregisterAppUser({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
@@ -340,19 +382,6 @@ export default {
 				}
 			}
 		},
-		async sendMsgRegisterApp({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const client=await initClient(rootGetters)
-				const result = await client.PocPoc.tx.sendMsgRegisterApp({ value, fee: {amount: fee, gas: "200000"}, memo })
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgRegisterApp:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgRegisterApp:Send Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
 		async sendMsgRegisterAppUser({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const client=await initClient(rootGetters)
@@ -367,6 +396,19 @@ export default {
 			}
 		},
 		
+		async MsgRegisterApp({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.PocPoc.tx.msgRegisterApp({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgRegisterApp:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgRegisterApp:Create Could not create message: ' + e.message)
+				}
+			}
+		},
 		async MsgDeregisterAppUser({ rootGetters }, { value }) {
 			try {
 				const client=initClient(rootGetters)
@@ -390,19 +432,6 @@ export default {
 					throw new Error('TxClient:MsgDeregisterApp:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgDeregisterApp:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgRegisterApp({ rootGetters }, { value }) {
-			try {
-				const client=initClient(rootGetters)
-				const msg = await client.PocPoc.tx.msgRegisterApp({value})
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgRegisterApp:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgRegisterApp:Create Could not create message: ' + e.message)
 				}
 			}
 		},
