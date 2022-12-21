@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "poc/poc/params.proto";
 import "poc/poc/app_registry.proto";
+import "poc/poc/dev_registry.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "poc/x/poc/types";
@@ -24,6 +25,16 @@ service Query {
 	// Queries a list of AppRegistry items.
 	rpc AppRegistryAll(QueryAllAppRegistryRequest) returns (QueryAllAppRegistryResponse) {
 		option (google.api.http).get = "/poc/poc/app_registry";
+	}
+
+// Queries a DevRegistry by index.
+	rpc DevRegistry(QueryGetDevRegistryRequest) returns (QueryGetDevRegistryResponse) {
+		option (google.api.http).get = "/poc/poc/dev_registry/{index}";
+	}
+
+	// Queries a list of DevRegistry items.
+	rpc DevRegistryAll(QueryAllDevRegistryRequest) returns (QueryAllDevRegistryResponse) {
+		option (google.api.http).get = "/poc/poc/dev_registry";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -53,6 +64,24 @@ message QueryAllAppRegistryRequest {
 
 message QueryAllAppRegistryResponse {
 	repeated AppRegistry appRegistry = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetDevRegistryRequest {
+	  string index = 1;
+
+}
+
+message QueryGetDevRegistryResponse {
+	DevRegistry devRegistry = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDevRegistryRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDevRegistryResponse {
+	repeated DevRegistry devRegistry = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

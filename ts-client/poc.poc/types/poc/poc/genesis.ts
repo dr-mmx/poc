@@ -1,21 +1,21 @@
 /* eslint-disable */
 import _m0 from "protobufjs/minimal";
 import { AppRegistry } from "./app_registry";
+import { DevRegistry } from "./dev_registry";
 import { Params } from "./params";
 
 export const protobufPackage = "poc.poc";
 
 /** GenesisState defines the poc module's genesis state. */
 export interface GenesisState {
-  params:
-    | Params
-    | undefined;
-  /** this line is used by starport scaffolding # genesis/proto/state */
+  params: Params | undefined;
   appRegistryList: AppRegistry[];
+  /** this line is used by starport scaffolding # genesis/proto/state */
+  devRegistryList: DevRegistry[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, appRegistryList: [] };
+  return { params: undefined, appRegistryList: [], devRegistryList: [] };
 }
 
 export const GenesisState = {
@@ -25,6 +25,9 @@ export const GenesisState = {
     }
     for (const v of message.appRegistryList) {
       AppRegistry.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.devRegistryList) {
+      DevRegistry.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -42,6 +45,9 @@ export const GenesisState = {
         case 2:
           message.appRegistryList.push(AppRegistry.decode(reader, reader.uint32()));
           break;
+        case 3:
+          message.devRegistryList.push(DevRegistry.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -56,6 +62,9 @@ export const GenesisState = {
       appRegistryList: Array.isArray(object?.appRegistryList)
         ? object.appRegistryList.map((e: any) => AppRegistry.fromJSON(e))
         : [],
+      devRegistryList: Array.isArray(object?.devRegistryList)
+        ? object.devRegistryList.map((e: any) => DevRegistry.fromJSON(e))
+        : [],
     };
   },
 
@@ -67,6 +76,11 @@ export const GenesisState = {
     } else {
       obj.appRegistryList = [];
     }
+    if (message.devRegistryList) {
+      obj.devRegistryList = message.devRegistryList.map((e) => e ? DevRegistry.toJSON(e) : undefined);
+    } else {
+      obj.devRegistryList = [];
+    }
     return obj;
   },
 
@@ -76,6 +90,7 @@ export const GenesisState = {
       ? Params.fromPartial(object.params)
       : undefined;
     message.appRegistryList = object.appRegistryList?.map((e) => AppRegistry.fromPartial(e)) || [];
+    message.devRegistryList = object.devRegistryList?.map((e) => DevRegistry.fromPartial(e)) || [];
     return message;
   },
 };

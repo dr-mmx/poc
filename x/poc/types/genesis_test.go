@@ -30,6 +30,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Index: "1",
 					},
 				},
+				DevRegistryList: []types.DevRegistry{
+					{
+						Index: "0",
+					},
+					{
+						Index: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -38,6 +46,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated appRegistry",
 			genState: &types.GenesisState{
 				AppRegistryList: []types.AppRegistry{
+					{
+						Index: "0",
+					},
+					{
+						Index: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated devRegistry",
+			genState: &types.GenesisState{
+				DevRegistryList: []types.DevRegistry{
 					{
 						Index: "0",
 					},

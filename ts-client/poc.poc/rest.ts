@@ -17,6 +17,12 @@ export interface PocAppRegistry {
   users?: string;
 }
 
+export interface PocDevRegistry {
+  index?: string;
+  devId?: string;
+  appsList?: string;
+}
+
 export type PocMsgDeregisterAppResponse = object;
 
 export type PocMsgDeregisterAppUserResponse = object;
@@ -45,8 +51,27 @@ export interface PocQueryAllAppRegistryResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface PocQueryAllDevRegistryResponse {
+  devRegistry?: PocDevRegistry[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface PocQueryGetAppRegistryResponse {
   appRegistry?: PocAppRegistry;
+}
+
+export interface PocQueryGetDevRegistryResponse {
+  devRegistry?: PocDevRegistry;
 }
 
 /**
@@ -302,6 +327,48 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryAppRegistry = (index: string, params: RequestParams = {}) =>
     this.request<PocQueryGetAppRegistryResponse, RpcStatus>({
       path: `/poc/poc/app_registry/${index}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDevRegistryAll
+   * @summary Queries a list of DevRegistry items.
+   * @request GET:/poc/poc/dev_registry
+   */
+  queryDevRegistryAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PocQueryAllDevRegistryResponse, RpcStatus>({
+      path: `/poc/poc/dev_registry`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryDevRegistry
+   * @summary Queries a DevRegistry by index.
+   * @request GET:/poc/poc/dev_registry/{index}
+   */
+  queryDevRegistry = (index: string, params: RequestParams = {}) =>
+    this.request<PocQueryGetDevRegistryResponse, RpcStatus>({
+      path: `/poc/poc/dev_registry/${index}`,
       method: "GET",
       format: "json",
       ...params,

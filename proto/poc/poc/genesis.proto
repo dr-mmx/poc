@@ -4,6 +4,7 @@ package poc.poc;
 import "gogoproto/gogo.proto";
 import "poc/poc/params.proto";
 import "poc/poc/app_registry.proto";
+import "poc/poc/dev_registry.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "poc/x/poc/types";
@@ -12,5 +13,6 @@ option go_package = "poc/x/poc/types";
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
   repeated AppRegistry appRegistryList = 2 [(gogoproto.nullable) = false];
+  repeated DevRegistry devRegistryList = 3 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

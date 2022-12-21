@@ -12,6 +12,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.AppRegistryList {
 		k.SetAppRegistry(ctx, elem)
 	}
+	// Set all the devRegistry
+	for _, elem := range genState.DevRegistryList {
+		k.SetDevRegistry(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -22,6 +26,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis.Params = k.GetParams(ctx)
 
 	genesis.AppRegistryList = k.GetAllAppRegistry(ctx)
+	genesis.DevRegistryList = k.GetAllDevRegistry(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

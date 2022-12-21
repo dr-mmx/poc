@@ -2,6 +2,7 @@
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../cosmos/base/query/v1beta1/pagination";
 import { AppRegistry } from "./app_registry";
+import { DevRegistry } from "./dev_registry";
 import { Params } from "./params";
 
 export const protobufPackage = "poc.poc";
@@ -30,6 +31,23 @@ export interface QueryAllAppRegistryRequest {
 
 export interface QueryAllAppRegistryResponse {
   appRegistry: AppRegistry[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetDevRegistryRequest {
+  index: string;
+}
+
+export interface QueryGetDevRegistryResponse {
+  devRegistry: DevRegistry | undefined;
+}
+
+export interface QueryAllDevRegistryRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllDevRegistryResponse {
+  devRegistry: DevRegistry[];
   pagination: PageResponse | undefined;
 }
 
@@ -335,6 +353,220 @@ export const QueryAllAppRegistryResponse = {
   },
 };
 
+function createBaseQueryGetDevRegistryRequest(): QueryGetDevRegistryRequest {
+  return { index: "" };
+}
+
+export const QueryGetDevRegistryRequest = {
+  encode(message: QueryGetDevRegistryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.index !== "") {
+      writer.uint32(10).string(message.index);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetDevRegistryRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryGetDevRegistryRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.index = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDevRegistryRequest {
+    return { index: isSet(object.index) ? String(object.index) : "" };
+  },
+
+  toJSON(message: QueryGetDevRegistryRequest): unknown {
+    const obj: any = {};
+    message.index !== undefined && (obj.index = message.index);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryGetDevRegistryRequest>, I>>(object: I): QueryGetDevRegistryRequest {
+    const message = createBaseQueryGetDevRegistryRequest();
+    message.index = object.index ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryGetDevRegistryResponse(): QueryGetDevRegistryResponse {
+  return { devRegistry: undefined };
+}
+
+export const QueryGetDevRegistryResponse = {
+  encode(message: QueryGetDevRegistryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.devRegistry !== undefined) {
+      DevRegistry.encode(message.devRegistry, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetDevRegistryResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryGetDevRegistryResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.devRegistry = DevRegistry.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetDevRegistryResponse {
+    return { devRegistry: isSet(object.devRegistry) ? DevRegistry.fromJSON(object.devRegistry) : undefined };
+  },
+
+  toJSON(message: QueryGetDevRegistryResponse): unknown {
+    const obj: any = {};
+    message.devRegistry !== undefined
+      && (obj.devRegistry = message.devRegistry ? DevRegistry.toJSON(message.devRegistry) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryGetDevRegistryResponse>, I>>(object: I): QueryGetDevRegistryResponse {
+    const message = createBaseQueryGetDevRegistryResponse();
+    message.devRegistry = (object.devRegistry !== undefined && object.devRegistry !== null)
+      ? DevRegistry.fromPartial(object.devRegistry)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllDevRegistryRequest(): QueryAllDevRegistryRequest {
+  return { pagination: undefined };
+}
+
+export const QueryAllDevRegistryRequest = {
+  encode(message: QueryAllDevRegistryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllDevRegistryRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllDevRegistryRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDevRegistryRequest {
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
+  },
+
+  toJSON(message: QueryAllDevRegistryRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined
+      && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllDevRegistryRequest>, I>>(object: I): QueryAllDevRegistryRequest {
+    const message = createBaseQueryAllDevRegistryRequest();
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllDevRegistryResponse(): QueryAllDevRegistryResponse {
+  return { devRegistry: [], pagination: undefined };
+}
+
+export const QueryAllDevRegistryResponse = {
+  encode(message: QueryAllDevRegistryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.devRegistry) {
+      DevRegistry.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllDevRegistryResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllDevRegistryResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.devRegistry.push(DevRegistry.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllDevRegistryResponse {
+    return {
+      devRegistry: Array.isArray(object?.devRegistry)
+        ? object.devRegistry.map((e: any) => DevRegistry.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllDevRegistryResponse): unknown {
+    const obj: any = {};
+    if (message.devRegistry) {
+      obj.devRegistry = message.devRegistry.map((e) => e ? DevRegistry.toJSON(e) : undefined);
+    } else {
+      obj.devRegistry = [];
+    }
+    message.pagination !== undefined
+      && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllDevRegistryResponse>, I>>(object: I): QueryAllDevRegistryResponse {
+    const message = createBaseQueryAllDevRegistryResponse();
+    message.devRegistry = object.devRegistry?.map((e) => DevRegistry.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -343,6 +575,10 @@ export interface Query {
   AppRegistry(request: QueryGetAppRegistryRequest): Promise<QueryGetAppRegistryResponse>;
   /** Queries a list of AppRegistry items. */
   AppRegistryAll(request: QueryAllAppRegistryRequest): Promise<QueryAllAppRegistryResponse>;
+  /** Queries a DevRegistry by index. */
+  DevRegistry(request: QueryGetDevRegistryRequest): Promise<QueryGetDevRegistryResponse>;
+  /** Queries a list of DevRegistry items. */
+  DevRegistryAll(request: QueryAllDevRegistryRequest): Promise<QueryAllDevRegistryResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -352,6 +588,8 @@ export class QueryClientImpl implements Query {
     this.Params = this.Params.bind(this);
     this.AppRegistry = this.AppRegistry.bind(this);
     this.AppRegistryAll = this.AppRegistryAll.bind(this);
+    this.DevRegistry = this.DevRegistry.bind(this);
+    this.DevRegistryAll = this.DevRegistryAll.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -369,6 +607,18 @@ export class QueryClientImpl implements Query {
     const data = QueryAllAppRegistryRequest.encode(request).finish();
     const promise = this.rpc.request("poc.poc.Query", "AppRegistryAll", data);
     return promise.then((data) => QueryAllAppRegistryResponse.decode(new _m0.Reader(data)));
+  }
+
+  DevRegistry(request: QueryGetDevRegistryRequest): Promise<QueryGetDevRegistryResponse> {
+    const data = QueryGetDevRegistryRequest.encode(request).finish();
+    const promise = this.rpc.request("poc.poc.Query", "DevRegistry", data);
+    return promise.then((data) => QueryGetDevRegistryResponse.decode(new _m0.Reader(data)));
+  }
+
+  DevRegistryAll(request: QueryAllDevRegistryRequest): Promise<QueryAllDevRegistryResponse> {
+    const data = QueryAllDevRegistryRequest.encode(request).finish();
+    const promise = this.rpc.request("poc.poc.Query", "DevRegistryAll", data);
+    return promise.then((data) => QueryAllDevRegistryResponse.decode(new _m0.Reader(data)));
   }
 }
 
