@@ -7,10 +7,21 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
+import { MsgRegisterApp } from "./types/poc/poc/tx";
 
 
-export {  };
+export { MsgRegisterApp };
 
+type sendMsgRegisterAppParams = {
+  value: MsgRegisterApp,
+  fee?: StdFee,
+  memo?: string
+};
+
+
+type msgRegisterAppParams = {
+  value: MsgRegisterApp,
+};
 
 
 export const registry = new Registry(msgTypes);
@@ -30,6 +41,28 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 
   return {
 		
+		async sendMsgRegisterApp({ value, fee, memo }: sendMsgRegisterAppParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgRegisterApp: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgRegisterApp({ value: MsgRegisterApp.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
+			} catch (e: any) {
+				throw new Error('TxClient:sendMsgRegisterApp: Could not broadcast Tx: '+ e.message)
+			}
+		},
+		
+		
+		msgRegisterApp({ value }: msgRegisterAppParams): EncodeObject {
+			try {
+				return { typeUrl: "/poc.poc.MsgRegisterApp", value: MsgRegisterApp.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgRegisterApp: Could not create message: ' + e.message)
+			}
+		},
 		
 	}
 };

@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+export type PocMsgRegisterAppResponse = object;
+
 /**
  * Params defines the parameters for the module.
  */
