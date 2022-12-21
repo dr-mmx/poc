@@ -211,17 +211,107 @@ func (m *MsgRegisterAppUserResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgRegisterAppUserResponse proto.InternalMessageInfo
 
+type MsgDeregisterApp struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	AppId   string `protobuf:"bytes,2,opt,name=appId,proto3" json:"appId,omitempty"`
+}
+
+func (m *MsgDeregisterApp) Reset()         { *m = MsgDeregisterApp{} }
+func (m *MsgDeregisterApp) String() string { return proto.CompactTextString(m) }
+func (*MsgDeregisterApp) ProtoMessage()    {}
+func (*MsgDeregisterApp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2c6bb47a6699abdd, []int{4}
+}
+func (m *MsgDeregisterApp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeregisterApp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeregisterApp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeregisterApp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeregisterApp.Merge(m, src)
+}
+func (m *MsgDeregisterApp) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeregisterApp) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeregisterApp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeregisterApp proto.InternalMessageInfo
+
+func (m *MsgDeregisterApp) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgDeregisterApp) GetAppId() string {
+	if m != nil {
+		return m.AppId
+	}
+	return ""
+}
+
+type MsgDeregisterAppResponse struct {
+}
+
+func (m *MsgDeregisterAppResponse) Reset()         { *m = MsgDeregisterAppResponse{} }
+func (m *MsgDeregisterAppResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgDeregisterAppResponse) ProtoMessage()    {}
+func (*MsgDeregisterAppResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2c6bb47a6699abdd, []int{5}
+}
+func (m *MsgDeregisterAppResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeregisterAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeregisterAppResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeregisterAppResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeregisterAppResponse.Merge(m, src)
+}
+func (m *MsgDeregisterAppResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeregisterAppResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeregisterAppResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeregisterAppResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgRegisterApp)(nil), "poc.poc.MsgRegisterApp")
 	proto.RegisterType((*MsgRegisterAppResponse)(nil), "poc.poc.MsgRegisterAppResponse")
 	proto.RegisterType((*MsgRegisterAppUser)(nil), "poc.poc.MsgRegisterAppUser")
 	proto.RegisterType((*MsgRegisterAppUserResponse)(nil), "poc.poc.MsgRegisterAppUserResponse")
+	proto.RegisterType((*MsgDeregisterApp)(nil), "poc.poc.MsgDeregisterApp")
+	proto.RegisterType((*MsgDeregisterAppResponse)(nil), "poc.poc.MsgDeregisterAppResponse")
 }
 
 func init() { proto.RegisterFile("poc/poc/tx.proto", fileDescriptor_2c6bb47a6699abdd) }
 
 var fileDescriptor_2c6bb47a6699abdd = []byte{
-	// 259 bytes of a gzipped FileDescriptorProto
+	// 299 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x28, 0xc8, 0x4f, 0xd6,
 	0x07, 0xe1, 0x92, 0x0a, 0xbd, 0x82, 0xa2, 0xfc, 0x92, 0x7c, 0x21, 0xf6, 0x82, 0xfc, 0x64, 0xbd,
 	0x82, 0xfc, 0x64, 0x25, 0x2f, 0x2e, 0x3e, 0xdf, 0xe2, 0xf4, 0xa0, 0xd4, 0xf4, 0xcc, 0xe2, 0x92,
@@ -231,14 +321,16 @@ var fileDescriptor_2c6bb47a6699abdd = []byte{
 	0x86, 0x6a, 0x56, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x52, 0x0c, 0x97, 0x10, 0xaa,
 	0x4c, 0x68, 0x71, 0x6a, 0x11, 0x1e, 0x9b, 0x44, 0xb8, 0x58, 0x13, 0x0b, 0x0a, 0x3c, 0x53, 0xa0,
 	0x96, 0x40, 0x38, 0x42, 0x62, 0x5c, 0x6c, 0xa5, 0xc5, 0xa9, 0x45, 0x9e, 0x29, 0x12, 0xcc, 0x60,
-	0x61, 0x28, 0x4f, 0x49, 0x86, 0x4b, 0x0a, 0xd3, 0x74, 0x98, 0xdd, 0x46, 0x8b, 0x19, 0xb9, 0x98,
-	0x7d, 0x8b, 0xd3, 0x85, 0xdc, 0xb9, 0xb8, 0x91, 0xbd, 0x29, 0xae, 0x07, 0x0d, 0x02, 0x3d, 0x54,
-	0xbd, 0x52, 0xf2, 0x38, 0x24, 0x60, 0x06, 0x0a, 0x05, 0x73, 0xf1, 0xa3, 0xfb, 0x44, 0x1a, 0x87,
-	0x1e, 0x90, 0xa4, 0x94, 0x32, 0x1e, 0x49, 0x98, 0xa1, 0x4e, 0x9a, 0x27, 0x1e, 0xc9, 0x31, 0x5e,
-	0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31,
-	0xdc, 0x78, 0x2c, 0xc7, 0x10, 0xc5, 0x0f, 0x8a, 0xb8, 0x0a, 0x48, 0xf4, 0x55, 0x16, 0xa4, 0x16,
-	0x27, 0xb1, 0x81, 0xa3, 0xd0, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0xf4, 0x7d, 0xcf, 0x9d, 0xd6,
-	0x01, 0x00, 0x00,
+	0x61, 0x28, 0x4f, 0x49, 0x86, 0x4b, 0x0a, 0xd3, 0x74, 0xb8, 0xdd, 0x4e, 0x5c, 0x02, 0xbe, 0xc5,
+	0xe9, 0x2e, 0xa9, 0x45, 0x44, 0xf9, 0x11, 0xab, 0xcd, 0x4a, 0x52, 0x5c, 0x12, 0xe8, 0x66, 0xc0,
+	0xcc, 0x37, 0xfa, 0xc4, 0xc8, 0xc5, 0xec, 0x5b, 0x9c, 0x2e, 0xe4, 0xce, 0xc5, 0x8d, 0x1c, 0x8c,
+	0xe2, 0x7a, 0xd0, 0x20, 0xd6, 0x43, 0x75, 0x9b, 0x94, 0x3c, 0x0e, 0x09, 0x98, 0x81, 0x42, 0xc1,
+	0x5c, 0xfc, 0xe8, 0x21, 0x25, 0x8d, 0x43, 0x0f, 0x48, 0x52, 0x4a, 0x19, 0x8f, 0x24, 0xdc, 0x50,
+	0x5f, 0x2e, 0x5e, 0xd4, 0x20, 0x90, 0x44, 0xd6, 0x85, 0x22, 0x25, 0xa5, 0x88, 0x53, 0x0a, 0x66,
+	0x9c, 0x93, 0xe6, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38,
+	0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0xf1, 0x83, 0xd2,
+	0x59, 0x05, 0x24, 0xb5, 0x55, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0x53, 0x9c, 0x31, 0x20, 0x00,
+	0x00, 0xff, 0xff, 0x69, 0x13, 0xe6, 0x6b, 0x85, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -255,6 +347,7 @@ const _ = grpc.SupportPackageIsVersion4
 type MsgClient interface {
 	RegisterApp(ctx context.Context, in *MsgRegisterApp, opts ...grpc.CallOption) (*MsgRegisterAppResponse, error)
 	RegisterAppUser(ctx context.Context, in *MsgRegisterAppUser, opts ...grpc.CallOption) (*MsgRegisterAppUserResponse, error)
+	DeregisterApp(ctx context.Context, in *MsgDeregisterApp, opts ...grpc.CallOption) (*MsgDeregisterAppResponse, error)
 }
 
 type msgClient struct {
@@ -283,10 +376,20 @@ func (c *msgClient) RegisterAppUser(ctx context.Context, in *MsgRegisterAppUser,
 	return out, nil
 }
 
+func (c *msgClient) DeregisterApp(ctx context.Context, in *MsgDeregisterApp, opts ...grpc.CallOption) (*MsgDeregisterAppResponse, error) {
+	out := new(MsgDeregisterAppResponse)
+	err := c.cc.Invoke(ctx, "/poc.poc.Msg/DeregisterApp", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	RegisterApp(context.Context, *MsgRegisterApp) (*MsgRegisterAppResponse, error)
 	RegisterAppUser(context.Context, *MsgRegisterAppUser) (*MsgRegisterAppUserResponse, error)
+	DeregisterApp(context.Context, *MsgDeregisterApp) (*MsgDeregisterAppResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -298,6 +401,9 @@ func (*UnimplementedMsgServer) RegisterApp(ctx context.Context, req *MsgRegister
 }
 func (*UnimplementedMsgServer) RegisterAppUser(ctx context.Context, req *MsgRegisterAppUser) (*MsgRegisterAppUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterAppUser not implemented")
+}
+func (*UnimplementedMsgServer) DeregisterApp(ctx context.Context, req *MsgDeregisterApp) (*MsgDeregisterAppResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeregisterApp not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -340,6 +446,24 @@ func _Msg_RegisterAppUser_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_DeregisterApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeregisterApp)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeregisterApp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/poc.poc.Msg/DeregisterApp",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeregisterApp(ctx, req.(*MsgDeregisterApp))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "poc.poc.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -351,6 +475,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RegisterAppUser",
 			Handler:    _Msg_RegisterAppUser_Handler,
+		},
+		{
+			MethodName: "DeregisterApp",
+			Handler:    _Msg_DeregisterApp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -484,6 +612,66 @@ func (m *MsgRegisterAppUserResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgDeregisterApp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeregisterApp) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeregisterApp) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.AppId) > 0 {
+		i -= len(m.AppId)
+		copy(dAtA[i:], m.AppId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.AppId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeregisterAppResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeregisterAppResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeregisterAppResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -543,6 +731,32 @@ func (m *MsgRegisterAppUser) Size() (n int) {
 }
 
 func (m *MsgRegisterAppUserResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgDeregisterApp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.AppId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgDeregisterAppResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -894,6 +1108,170 @@ func (m *MsgRegisterAppUserResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgRegisterAppUserResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeregisterApp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeregisterApp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeregisterApp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AppId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AppId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeregisterAppResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeregisterAppResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeregisterAppResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

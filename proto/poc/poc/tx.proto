@@ -9,6 +9,7 @@ option go_package = "poc/x/poc/types";
 service Msg {
       rpc RegisterApp(MsgRegisterApp) returns (MsgRegisterAppResponse);
   rpc RegisterAppUser(MsgRegisterAppUser) returns (MsgRegisterAppUserResponse);
+  rpc DeregisterApp(MsgDeregisterApp) returns (MsgDeregisterAppResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -27,6 +28,14 @@ message MsgRegisterAppUser {
 }
 
 message MsgRegisterAppUserResponse {
+}
+
+message MsgDeregisterApp {
+  string creator = 1;
+  string appId = 2;
+}
+
+message MsgDeregisterAppResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -20,6 +20,14 @@ export interface MsgRegisterAppUser {
 export interface MsgRegisterAppUserResponse {
 }
 
+export interface MsgDeregisterApp {
+  creator: string;
+  appId: string;
+}
+
+export interface MsgDeregisterAppResponse {
+}
+
 function createBaseMsgRegisterApp(): MsgRegisterApp {
   return { creator: "", parameters: "" };
 }
@@ -223,11 +231,109 @@ export const MsgRegisterAppUserResponse = {
   },
 };
 
+function createBaseMsgDeregisterApp(): MsgDeregisterApp {
+  return { creator: "", appId: "" };
+}
+
+export const MsgDeregisterApp = {
+  encode(message: MsgDeregisterApp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.appId !== "") {
+      writer.uint32(18).string(message.appId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeregisterApp {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDeregisterApp();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.appId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeregisterApp {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      appId: isSet(object.appId) ? String(object.appId) : "",
+    };
+  },
+
+  toJSON(message: MsgDeregisterApp): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.appId !== undefined && (obj.appId = message.appId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDeregisterApp>, I>>(object: I): MsgDeregisterApp {
+    const message = createBaseMsgDeregisterApp();
+    message.creator = object.creator ?? "";
+    message.appId = object.appId ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgDeregisterAppResponse(): MsgDeregisterAppResponse {
+  return {};
+}
+
+export const MsgDeregisterAppResponse = {
+  encode(_: MsgDeregisterAppResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeregisterAppResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDeregisterAppResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeregisterAppResponse {
+    return {};
+  },
+
+  toJSON(_: MsgDeregisterAppResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDeregisterAppResponse>, I>>(_: I): MsgDeregisterAppResponse {
+    const message = createBaseMsgDeregisterAppResponse();
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   RegisterApp(request: MsgRegisterApp): Promise<MsgRegisterAppResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   RegisterAppUser(request: MsgRegisterAppUser): Promise<MsgRegisterAppUserResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeregisterApp(request: MsgDeregisterApp): Promise<MsgDeregisterAppResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -236,6 +342,7 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.RegisterApp = this.RegisterApp.bind(this);
     this.RegisterAppUser = this.RegisterAppUser.bind(this);
+    this.DeregisterApp = this.DeregisterApp.bind(this);
   }
   RegisterApp(request: MsgRegisterApp): Promise<MsgRegisterAppResponse> {
     const data = MsgRegisterApp.encode(request).finish();
@@ -247,6 +354,12 @@ export class MsgClientImpl implements Msg {
     const data = MsgRegisterAppUser.encode(request).finish();
     const promise = this.rpc.request("poc.poc.Msg", "RegisterAppUser", data);
     return promise.then((data) => MsgRegisterAppUserResponse.decode(new _m0.Reader(data)));
+  }
+
+  DeregisterApp(request: MsgDeregisterApp): Promise<MsgDeregisterAppResponse> {
+    const data = MsgDeregisterApp.encode(request).finish();
+    const promise = this.rpc.request("poc.poc.Msg", "DeregisterApp", data);
+    return promise.then((data) => MsgDeregisterAppResponse.decode(new _m0.Reader(data)));
   }
 }
 

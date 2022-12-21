@@ -154,6 +154,19 @@ export default {
 				}
 			}
 		},
+		async sendMsgDeregisterApp({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const client=await initClient(rootGetters)
+				const result = await client.PocPoc.tx.sendMsgDeregisterApp({ value, fee: {amount: fee, gas: "200000"}, memo })
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeregisterApp:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDeregisterApp:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		
 		async MsgRegisterAppUser({ rootGetters }, { value }) {
 			try {
@@ -178,6 +191,19 @@ export default {
 					throw new Error('TxClient:MsgRegisterApp:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgRegisterApp:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDeregisterApp({ rootGetters }, { value }) {
+			try {
+				const client=initClient(rootGetters)
+				const msg = await client.PocPoc.tx.msgDeregisterApp({value})
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeregisterApp:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDeregisterApp:Create Could not create message: ' + e.message)
 				}
 			}
 		},
