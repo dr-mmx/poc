@@ -37,6 +37,11 @@ service Query {
 		option (google.api.http).get = "/poc/poc/dev_registry";
 	}
 
+// Queries a list of ShowAppUsers items.
+	rpc ShowAppUsers(QueryShowAppUsersRequest) returns (QueryShowAppUsersResponse) {
+		option (google.api.http).get = "/poc/poc/show_app_users/{appId}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -83,6 +88,14 @@ message QueryAllDevRegistryRequest {
 message QueryAllDevRegistryResponse {
 	repeated DevRegistry devRegistry = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryShowAppUsersRequest {
+  string appId = 1;
+}
+
+message QueryShowAppUsersResponse {
+  string users = 1;
 }
 
 // this line is used by starport scaffolding # 3

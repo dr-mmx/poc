@@ -51,6 +51,14 @@ export interface QueryAllDevRegistryResponse {
   pagination: PageResponse | undefined;
 }
 
+export interface QueryShowAppUsersRequest {
+  appId: string;
+}
+
+export interface QueryShowAppUsersResponse {
+  users: string;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -567,6 +575,100 @@ export const QueryAllDevRegistryResponse = {
   },
 };
 
+function createBaseQueryShowAppUsersRequest(): QueryShowAppUsersRequest {
+  return { appId: "" };
+}
+
+export const QueryShowAppUsersRequest = {
+  encode(message: QueryShowAppUsersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.appId !== "") {
+      writer.uint32(10).string(message.appId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAppUsersRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryShowAppUsersRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowAppUsersRequest {
+    return { appId: isSet(object.appId) ? String(object.appId) : "" };
+  },
+
+  toJSON(message: QueryShowAppUsersRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined && (obj.appId = message.appId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryShowAppUsersRequest>, I>>(object: I): QueryShowAppUsersRequest {
+    const message = createBaseQueryShowAppUsersRequest();
+    message.appId = object.appId ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryShowAppUsersResponse(): QueryShowAppUsersResponse {
+  return { users: "" };
+}
+
+export const QueryShowAppUsersResponse = {
+  encode(message: QueryShowAppUsersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.users !== "") {
+      writer.uint32(10).string(message.users);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAppUsersResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryShowAppUsersResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.users = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryShowAppUsersResponse {
+    return { users: isSet(object.users) ? String(object.users) : "" };
+  },
+
+  toJSON(message: QueryShowAppUsersResponse): unknown {
+    const obj: any = {};
+    message.users !== undefined && (obj.users = message.users);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryShowAppUsersResponse>, I>>(object: I): QueryShowAppUsersResponse {
+    const message = createBaseQueryShowAppUsersResponse();
+    message.users = object.users ?? "";
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -579,6 +681,8 @@ export interface Query {
   DevRegistry(request: QueryGetDevRegistryRequest): Promise<QueryGetDevRegistryResponse>;
   /** Queries a list of DevRegistry items. */
   DevRegistryAll(request: QueryAllDevRegistryRequest): Promise<QueryAllDevRegistryResponse>;
+  /** Queries a list of ShowAppUsers items. */
+  ShowAppUsers(request: QueryShowAppUsersRequest): Promise<QueryShowAppUsersResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -590,6 +694,7 @@ export class QueryClientImpl implements Query {
     this.AppRegistryAll = this.AppRegistryAll.bind(this);
     this.DevRegistry = this.DevRegistry.bind(this);
     this.DevRegistryAll = this.DevRegistryAll.bind(this);
+    this.ShowAppUsers = this.ShowAppUsers.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -619,6 +724,12 @@ export class QueryClientImpl implements Query {
     const data = QueryAllDevRegistryRequest.encode(request).finish();
     const promise = this.rpc.request("poc.poc.Query", "DevRegistryAll", data);
     return promise.then((data) => QueryAllDevRegistryResponse.decode(new _m0.Reader(data)));
+  }
+
+  ShowAppUsers(request: QueryShowAppUsersRequest): Promise<QueryShowAppUsersResponse> {
+    const data = QueryShowAppUsersRequest.encode(request).finish();
+    const promise = this.rpc.request("poc.poc.Query", "ShowAppUsers", data);
+    return promise.then((data) => QueryShowAppUsersResponse.decode(new _m0.Reader(data)));
   }
 }
 
