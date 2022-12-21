@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "poc/poc/params.proto";
+import "poc/poc/app_registry.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "poc/x/poc/types";
@@ -15,7 +16,17 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/poc/poc/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a AppRegistry by index.
+	rpc AppRegistry(QueryGetAppRegistryRequest) returns (QueryGetAppRegistryResponse) {
+		option (google.api.http).get = "/poc/poc/app_registry/{index}";
+	}
+
+	// Queries a list of AppRegistry items.
+	rpc AppRegistryAll(QueryAllAppRegistryRequest) returns (QueryAllAppRegistryResponse) {
+		option (google.api.http).get = "/poc/poc/app_registry";
+	}
+
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -25,6 +36,24 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetAppRegistryRequest {
+	  string index = 1;
+
+}
+
+message QueryGetAppRegistryResponse {
+	AppRegistry appRegistry = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllAppRegistryRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAppRegistryResponse {
+	repeated AppRegistry appRegistry = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3
