@@ -53,5 +53,5 @@ func (k msgServer) RegisterApp(goCtx context.Context, msg *types.MsgRegisterApp)
     // Save the new app entry into the store
     k.SetAppRegistry(ctx, app)
 
-    return &types.MsgRegisterAppResponse{appId}, nil
+    return &types.MsgRegisterAppResponse{AppId:appId}, nil
 }
