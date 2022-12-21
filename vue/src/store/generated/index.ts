@@ -1,8 +1,10 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
 
+import PocPoc from './poc.poc'
 
 
 export default { 
+  PocPoc: load(PocPoc, 'poc.poc'),
   
 }
 
