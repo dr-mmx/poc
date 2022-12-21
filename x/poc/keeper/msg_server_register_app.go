@@ -53,5 +53,17 @@ func (k msgServer) RegisterApp(goCtx context.Context, msg *types.MsgRegisterApp)
     // Save the new app entry into the store
     k.SetAppRegistry(ctx, app)
 
+    dev, isFound := k.GetDevRegistry(ctx, msg.Creator)
+    if !isFound {
+        var ndev = types.DevRegistry{
+            Index: msg.Creator,
+            Apps: appId,
+        }
+        k.SetDevRegistry(ctx, ndev)
+    } else {
+        dev.Apps += "!" + appId
+        k.SetDevRegistry(ctx, dev)
+    }
+
     return &types.MsgRegisterAppResponse{AppId:appId}, nil
 }

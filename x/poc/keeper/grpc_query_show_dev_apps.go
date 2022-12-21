@@ -4,6 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"poc/x/poc/types"
@@ -19,5 +20,11 @@ func (k Keeper) ShowDevApps(goCtx context.Context, req *types.QueryShowDevAppsRe
 	// TODO: Process the query
 	_ = ctx
 
-	return &types.QueryShowDevAppsResponse{}, nil
+    dev, isFound := k.GetDevRegistry(ctx, req.DevId)
+
+    if !isFound {
+        return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Developer not found: " + req.DevId)
+    }
+
+    return &types.QueryShowDevAppsResponse{Apps: dev.Apps}, nil
 }
