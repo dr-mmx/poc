@@ -44,7 +44,7 @@ func (k msgServer) RegisterApp(goCtx context.Context, msg *types.MsgRegisterApp)
 
     // Fill the AppRegistry
     var app = types.AppRegistry{
-        Index: string(appId[:]),
+        Index: appId,
         DevId: msg.Creator,
         Parameters: msg.Parameters,
         Stake: "1001token", // XXX hardcoded
@@ -63,6 +63,12 @@ func (k msgServer) RegisterApp(goCtx context.Context, msg *types.MsgRegisterApp)
     } else {
         dev.Apps += "!" + appId
         k.SetDevRegistry(ctx, dev)
+    }
+
+    err = ctx.EventManager().EmitTypedEvent(&types.EventRegisterApp{AppId:appId})
+    
+    if err != nil {
+        return nil, err
     }
 
     return &types.MsgRegisterAppResponse{AppId:appId}, nil

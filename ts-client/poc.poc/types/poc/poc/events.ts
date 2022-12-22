@@ -3,6 +3,15 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "poc.poc";
 
+export interface EventRegisterApp {
+  appId: string;
+}
+
+export interface EventRegisterAppUser {
+  appId: string;
+  userId: string;
+}
+
 export interface EventDeregisterApp {
   appId: string;
 }
@@ -11,6 +20,111 @@ export interface EventDeregisterAppUser {
   appId: string;
   userId: string;
 }
+
+function createBaseEventRegisterApp(): EventRegisterApp {
+  return { appId: "" };
+}
+
+export const EventRegisterApp = {
+  encode(message: EventRegisterApp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.appId !== "") {
+      writer.uint32(10).string(message.appId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventRegisterApp {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventRegisterApp();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EventRegisterApp {
+    return { appId: isSet(object.appId) ? String(object.appId) : "" };
+  },
+
+  toJSON(message: EventRegisterApp): unknown {
+    const obj: any = {};
+    message.appId !== undefined && (obj.appId = message.appId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventRegisterApp>, I>>(object: I): EventRegisterApp {
+    const message = createBaseEventRegisterApp();
+    message.appId = object.appId ?? "";
+    return message;
+  },
+};
+
+function createBaseEventRegisterAppUser(): EventRegisterAppUser {
+  return { appId: "", userId: "" };
+}
+
+export const EventRegisterAppUser = {
+  encode(message: EventRegisterAppUser, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.appId !== "") {
+      writer.uint32(10).string(message.appId);
+    }
+    if (message.userId !== "") {
+      writer.uint32(18).string(message.userId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventRegisterAppUser {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEventRegisterAppUser();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.string();
+          break;
+        case 2:
+          message.userId = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EventRegisterAppUser {
+    return {
+      appId: isSet(object.appId) ? String(object.appId) : "",
+      userId: isSet(object.userId) ? String(object.userId) : "",
+    };
+  },
+
+  toJSON(message: EventRegisterAppUser): unknown {
+    const obj: any = {};
+    message.appId !== undefined && (obj.appId = message.appId);
+    message.userId !== undefined && (obj.userId = message.userId);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventRegisterAppUser>, I>>(object: I): EventRegisterAppUser {
+    const message = createBaseEventRegisterAppUser();
+    message.appId = object.appId ?? "";
+    message.userId = object.userId ?? "";
+    return message;
+  },
+};
 
 function createBaseEventDeregisterApp(): EventDeregisterApp {
   return { appId: "" };

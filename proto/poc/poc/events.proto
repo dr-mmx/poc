@@ -3,6 +3,15 @@ package poc.poc;
 
 option go_package = "poc/x/poc/types";
 
+message EventRegisterApp {
+    string appId = 1;
+}
+
+message EventRegisterAppUser {
+    string appId = 1;
+    string userId = 2;
+}
+
 message EventDeregisterApp {
     string appId = 1;
 }

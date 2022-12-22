@@ -27,5 +27,11 @@ func (k msgServer) RegisterAppUser(goCtx context.Context, msg *types.MsgRegister
         return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Unauthorized access to the app: " + msg.AppId)
     }
 
+    err := ctx.EventManager().EmitTypedEvent(&types.EventRegisterAppUser{AppId:msg.AppId, UserId:msg.UserId})
+
+    if err != nil {
+        return nil, err
+    }
+
 	return &types.MsgRegisterAppUserResponse{}, nil
 }

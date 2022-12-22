@@ -7,16 +7,16 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
-import { MsgRegisterApp } from "./types/poc/poc/tx";
-import { MsgDeregisterAppUser } from "./types/poc/poc/tx";
 import { MsgRegisterAppUser } from "./types/poc/poc/tx";
+import { MsgDeregisterAppUser } from "./types/poc/poc/tx";
+import { MsgRegisterApp } from "./types/poc/poc/tx";
 import { MsgDeregisterApp } from "./types/poc/poc/tx";
 
 
-export { MsgRegisterApp, MsgDeregisterAppUser, MsgRegisterAppUser, MsgDeregisterApp };
+export { MsgRegisterAppUser, MsgDeregisterAppUser, MsgRegisterApp, MsgDeregisterApp };
 
-type sendMsgRegisterAppParams = {
-  value: MsgRegisterApp,
+type sendMsgRegisterAppUserParams = {
+  value: MsgRegisterAppUser,
   fee?: StdFee,
   memo?: string
 };
@@ -27,8 +27,8 @@ type sendMsgDeregisterAppUserParams = {
   memo?: string
 };
 
-type sendMsgRegisterAppUserParams = {
-  value: MsgRegisterAppUser,
+type sendMsgRegisterAppParams = {
+  value: MsgRegisterApp,
   fee?: StdFee,
   memo?: string
 };
@@ -40,16 +40,16 @@ type sendMsgDeregisterAppParams = {
 };
 
 
-type msgRegisterAppParams = {
-  value: MsgRegisterApp,
+type msgRegisterAppUserParams = {
+  value: MsgRegisterAppUser,
 };
 
 type msgDeregisterAppUserParams = {
   value: MsgDeregisterAppUser,
 };
 
-type msgRegisterAppUserParams = {
-  value: MsgRegisterAppUser,
+type msgRegisterAppParams = {
+  value: MsgRegisterApp,
 };
 
 type msgDeregisterAppParams = {
@@ -74,17 +74,17 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 
   return {
 		
-		async sendMsgRegisterApp({ value, fee, memo }: sendMsgRegisterAppParams): Promise<DeliverTxResponse> {
+		async sendMsgRegisterAppUser({ value, fee, memo }: sendMsgRegisterAppUserParams): Promise<DeliverTxResponse> {
 			if (!signer) {
-					throw new Error('TxClient:sendMsgRegisterApp: Unable to sign Tx. Signer is not present.')
+					throw new Error('TxClient:sendMsgRegisterAppUser: Unable to sign Tx. Signer is not present.')
 			}
 			try {			
 				const { address } = (await signer.getAccounts())[0]; 
 				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgRegisterApp({ value: MsgRegisterApp.fromPartial(value) })
+				let msg = this.msgRegisterAppUser({ value: MsgRegisterAppUser.fromPartial(value) })
 				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
-				throw new Error('TxClient:sendMsgRegisterApp: Could not broadcast Tx: '+ e.message)
+				throw new Error('TxClient:sendMsgRegisterAppUser: Could not broadcast Tx: '+ e.message)
 			}
 		},
 		
@@ -102,17 +102,17 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		async sendMsgRegisterAppUser({ value, fee, memo }: sendMsgRegisterAppUserParams): Promise<DeliverTxResponse> {
+		async sendMsgRegisterApp({ value, fee, memo }: sendMsgRegisterAppParams): Promise<DeliverTxResponse> {
 			if (!signer) {
-					throw new Error('TxClient:sendMsgRegisterAppUser: Unable to sign Tx. Signer is not present.')
+					throw new Error('TxClient:sendMsgRegisterApp: Unable to sign Tx. Signer is not present.')
 			}
 			try {			
 				const { address } = (await signer.getAccounts())[0]; 
 				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgRegisterAppUser({ value: MsgRegisterAppUser.fromPartial(value) })
+				let msg = this.msgRegisterApp({ value: MsgRegisterApp.fromPartial(value) })
 				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
-				throw new Error('TxClient:sendMsgRegisterAppUser: Could not broadcast Tx: '+ e.message)
+				throw new Error('TxClient:sendMsgRegisterApp: Could not broadcast Tx: '+ e.message)
 			}
 		},
 		
@@ -131,11 +131,11 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 		},
 		
 		
-		msgRegisterApp({ value }: msgRegisterAppParams): EncodeObject {
+		msgRegisterAppUser({ value }: msgRegisterAppUserParams): EncodeObject {
 			try {
-				return { typeUrl: "/poc.poc.MsgRegisterApp", value: MsgRegisterApp.fromPartial( value ) }  
+				return { typeUrl: "/poc.poc.MsgRegisterAppUser", value: MsgRegisterAppUser.fromPartial( value ) }  
 			} catch (e: any) {
-				throw new Error('TxClient:MsgRegisterApp: Could not create message: ' + e.message)
+				throw new Error('TxClient:MsgRegisterAppUser: Could not create message: ' + e.message)
 			}
 		},
 		
@@ -147,11 +147,11 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		msgRegisterAppUser({ value }: msgRegisterAppUserParams): EncodeObject {
+		msgRegisterApp({ value }: msgRegisterAppParams): EncodeObject {
 			try {
-				return { typeUrl: "/poc.poc.MsgRegisterAppUser", value: MsgRegisterAppUser.fromPartial( value ) }  
+				return { typeUrl: "/poc.poc.MsgRegisterApp", value: MsgRegisterApp.fromPartial( value ) }  
 			} catch (e: any) {
-				throw new Error('TxClient:MsgRegisterAppUser: Could not create message: ' + e.message)
+				throw new Error('TxClient:MsgRegisterApp: Could not create message: ' + e.message)
 			}
 		},
 		
