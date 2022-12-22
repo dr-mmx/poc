@@ -5,12 +5,11 @@ export const protobufPackage = "poc.poc";
 
 export interface DevRegistry {
   index: string;
-  devId: string;
-  appsList: string;
+  apps: string;
 }
 
 function createBaseDevRegistry(): DevRegistry {
-  return { index: "", devId: "", appsList: "" };
+  return { index: "", apps: "" };
 }
 
 export const DevRegistry = {
@@ -18,11 +17,8 @@ export const DevRegistry = {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
-    if (message.devId !== "") {
-      writer.uint32(18).string(message.devId);
-    }
-    if (message.appsList !== "") {
-      writer.uint32(26).string(message.appsList);
+    if (message.apps !== "") {
+      writer.uint32(18).string(message.apps);
     }
     return writer;
   },
@@ -38,10 +34,7 @@ export const DevRegistry = {
           message.index = reader.string();
           break;
         case 2:
-          message.devId = reader.string();
-          break;
-        case 3:
-          message.appsList = reader.string();
+          message.apps = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -54,24 +47,21 @@ export const DevRegistry = {
   fromJSON(object: any): DevRegistry {
     return {
       index: isSet(object.index) ? String(object.index) : "",
-      devId: isSet(object.devId) ? String(object.devId) : "",
-      appsList: isSet(object.appsList) ? String(object.appsList) : "",
+      apps: isSet(object.apps) ? String(object.apps) : "",
     };
   },
 
   toJSON(message: DevRegistry): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
-    message.devId !== undefined && (obj.devId = message.devId);
-    message.appsList !== undefined && (obj.appsList = message.appsList);
+    message.apps !== undefined && (obj.apps = message.apps);
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<DevRegistry>, I>>(object: I): DevRegistry {
     const message = createBaseDevRegistry();
     message.index = object.index ?? "";
-    message.devId = object.devId ?? "";
-    message.appsList = object.appsList ?? "";
+    message.apps = object.apps ?? "";
     return message;
   },
 };

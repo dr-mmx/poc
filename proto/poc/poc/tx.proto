@@ -43,7 +43,7 @@ message MsgDeregisterAppResponse {
 message MsgDeregisterAppUser {
   string creator = 1;
   string appId = 2;
-  string devId = 3;
+  string userId = 3;
 }
 
 message MsgDeregisterAppUserResponse {

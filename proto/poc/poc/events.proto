@@ -1,0 +1,14 @@
+syntax = "proto3";
+package poc.poc;
+
+option go_package = "poc/x/poc/types";
+
+message EventDeregisterApp {
+    string appId = 1;
+}
+
+message EventDeregisterAppUser {
+    string appId = 1;
+    string userId = 2;
+}
+

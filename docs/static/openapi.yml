@@ -44503,9 +44503,7 @@ paths:
                   properties:
                     index:
                       type: string
-                    devId:
-                      type: string
-                    appsList:
+                    apps:
                       type: string
               pagination:
                 type: object
@@ -44627,9 +44625,7 @@ paths:
                 properties:
                   index:
                     type: string
-                  devId:
-                    type: string
-                  appsList:
+                  apps:
                     type: string
         default:
           description: An unexpected error response.
@@ -74206,9 +74202,7 @@ definitions:
     properties:
       index:
         type: string
-      devId:
-        type: string
-      appsList:
+      apps:
         type: string
   poc.poc.MsgDeregisterAppResponse:
     type: object
@@ -74278,9 +74272,7 @@ definitions:
           properties:
             index:
               type: string
-            devId:
-              type: string
-            appsList:
+            apps:
               type: string
       pagination:
         type: object
@@ -74332,9 +74324,7 @@ definitions:
         properties:
           index:
             type: string
-          devId:
-            type: string
-          appsList:
+          apps:
             type: string
   poc.poc.QueryParamsResponse:
     type: object

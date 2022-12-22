@@ -9,11 +9,11 @@ const TypeMsgDeregisterAppUser = "deregister_app_user"
 
 var _ sdk.Msg = &MsgDeregisterAppUser{}
 
-func NewMsgDeregisterAppUser(creator string, appId string, devId string) *MsgDeregisterAppUser {
+func NewMsgDeregisterAppUser(creator string, appId string, userId string) *MsgDeregisterAppUser {
 	return &MsgDeregisterAppUser{
 		Creator: creator,
 		AppId:   appId,
-		DevId:   devId,
+		UserId:  userId,
 	}
 }
 

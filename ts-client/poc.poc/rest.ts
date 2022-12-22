@@ -19,8 +19,7 @@ export interface PocAppRegistry {
 
 export interface PocDevRegistry {
   index?: string;
-  devId?: string;
-  appsList?: string;
+  apps?: string;
 }
 
 export type PocMsgDeregisterAppResponse = object;

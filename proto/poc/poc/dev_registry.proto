@@ -5,8 +5,7 @@ option go_package = "poc/x/poc/types";
 
 message DevRegistry {
   string index = 1; 
-  string devId = 2; 
-  string appsList = 3; 
+  string apps = 2; 
   
 }
 

@@ -32,7 +32,7 @@ export interface MsgDeregisterAppResponse {
 export interface MsgDeregisterAppUser {
   creator: string;
   appId: string;
-  devId: string;
+  userId: string;
 }
 
 export interface MsgDeregisterAppUserResponse {
@@ -347,7 +347,7 @@ export const MsgDeregisterAppResponse = {
 };
 
 function createBaseMsgDeregisterAppUser(): MsgDeregisterAppUser {
-  return { creator: "", appId: "", devId: "" };
+  return { creator: "", appId: "", userId: "" };
 }
 
 export const MsgDeregisterAppUser = {
@@ -358,8 +358,8 @@ export const MsgDeregisterAppUser = {
     if (message.appId !== "") {
       writer.uint32(18).string(message.appId);
     }
-    if (message.devId !== "") {
-      writer.uint32(26).string(message.devId);
+    if (message.userId !== "") {
+      writer.uint32(26).string(message.userId);
     }
     return writer;
   },
@@ -378,7 +378,7 @@ export const MsgDeregisterAppUser = {
           message.appId = reader.string();
           break;
         case 3:
-          message.devId = reader.string();
+          message.userId = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -392,7 +392,7 @@ export const MsgDeregisterAppUser = {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
       appId: isSet(object.appId) ? String(object.appId) : "",
-      devId: isSet(object.devId) ? String(object.devId) : "",
+      userId: isSet(object.userId) ? String(object.userId) : "",
     };
   },
 
@@ -400,7 +400,7 @@ export const MsgDeregisterAppUser = {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
     message.appId !== undefined && (obj.appId = message.appId);
-    message.devId !== undefined && (obj.devId = message.devId);
+    message.userId !== undefined && (obj.userId = message.userId);
     return obj;
   },
 
@@ -408,7 +408,7 @@ export const MsgDeregisterAppUser = {
     const message = createBaseMsgDeregisterAppUser();
     message.creator = object.creator ?? "";
     message.appId = object.appId ?? "";
-    message.devId = object.devId ?? "";
+    message.userId = object.userId ?? "";
     return message;
   },
 };
